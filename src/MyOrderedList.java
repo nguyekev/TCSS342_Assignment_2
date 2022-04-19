@@ -1,17 +1,29 @@
 import java.util.ArrayList;
 
 public class MyOrderedList<Type extends Comparable <Type>> {
-    private MyArrayList<Type> list;
+    private MyArrayList<Type> list = new MyArrayList<>();
     public long comparisons = 0;
     public MyOrderedList(){
-
     }
     public void add(Type item) {
-        list.insert(item, 0);
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).compareTo(item) > 0) {
+                comparisons++;
+                list.insert(item, i);
+                return;
+            }
+        }
+        list.insert(item, list.size());
         comparisons++;
     }
-    public void remove(Type item) {
-        list.remove((Integer) item);
+    public Type remove(Type item) {
+        for(int i = 0; i < list.size(); i++) {
+            if(list.get(i).compareTo(item) == 0) {
+                list.remove(i);
+                return item;
+            }
+        }
+        return null;
     }
     public boolean binarySearch(Type item) {
         return binarySearch(item, 0, list.size() - 1);
@@ -27,8 +39,10 @@ public class MyOrderedList<Type extends Comparable <Type>> {
             }
             else if(list.get(mid).compareTo(item) < 0) {
                 start = mid + 1;
+                comparisons++;
             } else {
                 end = mid - 1;
+                comparisons++;
             }
             return binarySearch(item, 0, list.size() - 1);
         }

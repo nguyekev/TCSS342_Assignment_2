@@ -24,7 +24,7 @@ public class MyLinkedList<Type extends Comparable <Type>> {
     public Node cur = first;
     public Node prev;
     public int size = 0;
-
+    public int comparisons = 0;
     public Type first() {
         Type item = null;
         cur = first;
@@ -32,11 +32,6 @@ public class MyLinkedList<Type extends Comparable <Type>> {
             item = cur.item;
         }
         return item;
-    }
-
-    public void add(Type item) {
-        first = new Node(item, first);
-        size++;
     }
 
     public void addBefore(Type item) {
@@ -89,10 +84,9 @@ public class MyLinkedList<Type extends Comparable <Type>> {
         if (cur != null) {
             prev = cur;
             cur = cur.next;
-            return cur.item;
-        } else {
-            return null;
+            return cur == null ? null : current();
         }
+        return null;
     }
 
     public Type remove() {
@@ -120,14 +114,19 @@ public class MyLinkedList<Type extends Comparable <Type>> {
     }
 
     public boolean contains(Type item) {
+        comparisons++;
+        if (size == 0) {
+            return false;
+        }
         Node tempNode = first;
-        while (tempNode.item != item) {
-            if (tempNode.next == null) {
-                return false;
+        while (tempNode != null) {
+            if (tempNode.item.compareTo(item) == 0) {
+                comparisons++;
+                return true;
             }
             tempNode = tempNode.next;
         }
-        return true;
+        return false;
     }
 
     public int size() {

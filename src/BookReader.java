@@ -14,10 +14,40 @@ public class BookReader {
         long start, finish, difference;
         start = System.currentTimeMillis();    // Starts timer.
         int size = 0;
-        StringBuffer sb = new StringBuffer();
-        String[] text = book.split("[^a-zA-Z0-9']+");
-        for (String w : text) {
-            words.addBefore(w);
+        char[] charArray = book.toCharArray();
+        String word = "";
+        char[] characters = {
+                '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+                'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
+                'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w',
+                'x', 'y', 'z',
+                'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K',
+                'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W',
+                'X', 'Y', 'Z', '\''
+        };
+        for (int i = 0; i < charArray.length; i++) {
+            boolean flag = false;
+            innerloop:
+            for (int j = 0; j < characters.length; j++) {
+                if (charArray[i] == characters[j]) {
+                    flag = true;
+                    break innerloop;
+                }
+            }
+            if (flag) {
+                word += String.valueOf(charArray[i]);
+                flag = false;
+            } else if (!word.isBlank()) {
+                if (size == 0) {
+                    words.addBefore(word);
+                    words.first();
+                    size++;
+                } else {
+                    words.addAfter(word);
+                    words.next();
+                }
+                word = "";
+            }
         }
         System.out.println(words.size() + " words read.");
         finish = System.currentTimeMillis(); // Ends timer.
@@ -44,6 +74,9 @@ public class BookReader {
             finish = System.currentTimeMillis(); // Ends timer.
             difference = finish - start; // Calculates the time to process.
             System.out.println("Time to process: " + difference + " milliseconds.");
-        }
+    }
+    public MyLinkedList<String> getWords() {
+        return words;
+    }
 
 }
