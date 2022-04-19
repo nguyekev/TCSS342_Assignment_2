@@ -51,7 +51,7 @@ public class UniqueWords {
         System.out.println("Linked List comparisons: " + uniqueWords.comparisons);
         finish = System.currentTimeMillis();
         difference = finish - start;
-        System.out.println("Time to process: " + difference + " seconds.");
+        System.out.println("Time to process: " + difference / 1000 + " seconds.");
     }
 
 }

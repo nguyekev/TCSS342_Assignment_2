@@ -120,8 +120,8 @@ public class MyLinkedList<Type extends Comparable <Type>> {
         }
         Node tempNode = first;
         while (tempNode != null) {
+            comparisons++;
             if (tempNode.item.compareTo(item) == 0) {
-                comparisons++;
                 return true;
             }
             tempNode = tempNode.next;
