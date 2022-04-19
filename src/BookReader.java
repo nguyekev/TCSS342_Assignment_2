@@ -53,6 +53,7 @@ public class BookReader {
         finish = System.currentTimeMillis(); // Ends timer.
         difference = finish - start; // Calculates the time to process.
         System.out.println("Time to process: " + difference + " milliseconds.");
+        System.out.println();
     }
 
 
@@ -74,6 +75,7 @@ public class BookReader {
             finish = System.currentTimeMillis(); // Ends timer.
             difference = finish - start; // Calculates the time to process.
             System.out.println("Time to process: " + difference + " milliseconds.");
+            System.out.println();
     }
     public MyLinkedList<String> getWords() {
         return words;

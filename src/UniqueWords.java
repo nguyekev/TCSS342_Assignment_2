@@ -11,8 +11,8 @@ public class UniqueWords {
     }
 
     public UniqueWords() throws IOException {
-        addUniqueWordsToLinkedList();
         addUniqueWordsToArrayList();
+        addUniqueWordsToLinkedList();
         addUniqueWordsToOrderedList();
     }
 
@@ -21,16 +21,23 @@ public class UniqueWords {
         start = System.currentTimeMillis();    // Starts timer.
         finish = System.currentTimeMillis(); // Ends timer.
         difference = finish - start; // Calculates the time to process.
-        System.out.println("Time to process: " + difference + " milliseconds.");
+        System.out.println("Time to process: " + difference/1000 + " milliseconds.");
+        System.out.println();
     }
 
     public void addUniqueWordsToArrayList() {
-        String words = book.getWords().first();
+        long start, finish, difference;
+        start = System.currentTimeMillis();    // Starts timer.
+        finish = System.currentTimeMillis(); // Ends timer.
+        difference = finish - start; // Calculates the time to process.
+        System.out.println("Time to process: " + difference/1000 + " milliseconds.");
+        System.out.println();
     }
 
     public void addUniqueWordsToLinkedList() {
         long start, finish, difference;
         start = System.currentTimeMillis();
+        System.out.println("Adding unique words using linkedList");
         String words = book.getWords().first();
         int size = 0;
         MyLinkedList<String> uniqueWords = new MyLinkedList<>();
@@ -52,6 +59,7 @@ public class UniqueWords {
         finish = System.currentTimeMillis();
         difference = finish - start;
         System.out.println("Time to process: " + difference / 1000 + " seconds.");
+        System.out.println();
     }
 
 }
