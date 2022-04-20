@@ -2,19 +2,19 @@ import java.util.ArrayList;
 
 public class MyOrderedList<Type extends Comparable <Type>> {
     private MyArrayList<Type> list = new MyArrayList<>();
-    public long comparisons = 0;
+    public int comparisons = 0;
     public MyOrderedList(){
     }
     public void add(Type item) {
+        comparisons++;
         for (int i = 0; i < list.size(); i++) {
+            comparisons++;
             if (list.get(i).compareTo(item) > 0) {
-                comparisons++;
                 list.insert(item, i);
                 return;
             }
         }
         list.insert(item, list.size());
-        comparisons++;
     }
     public Type remove(Type item) {
         for(int i = 0; i < list.size(); i++) {
@@ -29,24 +29,24 @@ public class MyOrderedList<Type extends Comparable <Type>> {
         return binarySearch(item, 0, list.size() - 1);
     }
     private boolean binarySearch(Type item, int start, int end) {
-        start = 0;
-        end = list.size() - 1;
-        while (start <= end) {
-            int mid = (start + end) / 2;
-            if(list.get(mid).compareTo(item) == 0) {
-                comparisons++;
-                return true;
-            }
-            else if(list.get(mid).compareTo(item) < 0) {
-                start = mid + 1;
-                comparisons++;
-            } else {
-                end = mid - 1;
-                comparisons++;
-            }
-            return binarySearch(item, 0, list.size() - 1);
+        if (start > end) {
+            comparisons++;
+            return false;
         }
-        return false;
+
+        comparisons++;
+        int mid = start + (end - start) / 2;
+        if (list.get(mid).compareTo(item) == 0) {
+            comparisons++;
+            return true;
+        }
+
+        comparisons++;
+        if (item.compareTo(list.get(mid)) < 0) {
+            comparisons++;
+            return binarySearch(item, start, mid - 1);
+        }
+        return binarySearch(item, mid + 1, end);
     }
 
     public int size() {
@@ -54,6 +54,9 @@ public class MyOrderedList<Type extends Comparable <Type>> {
     }
     public boolean isEmpty() {
         return list.isEmpty();
+    }
+    public int getComparisons() {
+        return comparisons;
     }
     public String toString() {
         return list.toString();

@@ -138,7 +138,22 @@ public class MyLinkedList<Type extends Comparable <Type>> {
     }
 
     public void sort() {
-        //Bubble sort
+        if (size <= 0) {
+            return;
+        }
+        for (int i = 0; i < size; i++) {
+            Node curr = this.first;
+            Node next = this.first.next;
+            for (int j = 0; j < size - 1; j++) {
+                if (curr.item.compareTo(next.item) > 0) {
+                    Type temp = curr.item;
+                    curr.item = next.item;
+                    next.item = temp;
+                }
+                curr = next;
+                next = next.next;
+            }
+        }
     }
 
     public String toString() {

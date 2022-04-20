@@ -59,12 +59,11 @@ public class MyArrayList<Type extends Comparable<Type>> {
 
     public boolean contains(Type item) {
         comparisons++;
-        for (int i = 0; i <= list.length; i++) {
-            if (list[i] == null) {
+        for (int i = 0; i < list.length; i++) {
+            if (list[i] != null) {
                 comparisons++;
-                if (list[i].compareTo(item) == 0) {
+                if (list[i].compareTo(item) == 0)
                     return true;
-                }
             }
         }
         return false;
@@ -108,21 +107,18 @@ public class MyArrayList<Type extends Comparable<Type>> {
     }
 
     public Boolean isEmpty() {
-        if (size == 0) {
-            return true;
-        }
-        return false;
+        return size == 0;
     }
 
     public void sort() {
-        for (int j = 1; j < list.length; j++) {
-            Type current = list[j];
-            int i = j-1;
-            while ((i > -1) && (list[i].compareTo(current) == 1)) {
-                //list.set(i+1, list.get(i));
-                i--;
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size - 1; j++) {
+                if (list[i].compareTo(list[j]) < 0) {
+                    Type t1 =  list[i];
+                    list[i] = list[j];
+                    list[j] = t1;
+                }
             }
-            list[i+1] = current;
         }
     }
 
